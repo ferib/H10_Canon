@@ -4,7 +4,6 @@ using System.Timers;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -24,6 +23,7 @@ namespace Canon
     public partial class MainWindow : Window
     {
         private ShootingRange Schietbaan;
+        private DispatcherTimer BulletTimer;
 
         public MainWindow()
         {
@@ -32,41 +32,31 @@ namespace Canon
             Schietbaan.Initialise();
         }
 
-        //private double distanceMeter = 0;
-        //public double DistanceMeter
-        //{
-        //    get { return distanceMeter; }
-        //    set { distanceMeter = value; }
-        //}
-
-        //private double distanceHeight = 0;
-        //public double DistanceHeight
-        //{
-        //    get { return distanceHeight; }
-        //    set { distanceHeight = value; }
-        //}
-
-        //private double speedValue = 0;
-        //public double SpeedValue
-        //{
-        //    get { return speedValue; }
-        //    set { speedValue = value; }
-        //}
-
-        //private double angleValue;
-        //public double AngleValue
-        //{
-        //    get { return angleValue; }
-        //    set 
-        //    {
-        //        angleValue = value;
-        //    }
-        //}
-
         private void btnShoot_Click(object sender, RoutedEventArgs e)
         {
-            Schietbaan.Shoot();
-            // TODO: callback
+            Bullet billy = new Bullet(Schietbaan);
+            BulletTimer = billy.Launch();
+            BulletTimer.Tick += UpdateWPFView; // hook WPF cleanup
+            BulletTimer.Start();
+            sldSpeed.IsEnabled = false;
+            sldAngle.IsEnabled = false;
+            btnShoot.IsEnabled = false;
+        }
+
+        private void UpdateWPFView(object sender, EventArgs e)
+        {
+            // TODO: update WPF UI
+            if (!BulletTimer.IsEnabled)
+                ShotsFired();
+
+        }
+
+        private void ShotsFired()
+        {
+            // TODO: unlock WPF UI
+            sldSpeed.IsEnabled = true;
+            sldAngle.IsEnabled = true;
+            btnShoot.IsEnabled = true;
         }
     }
 }

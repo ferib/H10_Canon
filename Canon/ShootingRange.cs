@@ -18,88 +18,21 @@ namespace Canon
 {
     public class ShootingRange
     {
-        private const int WorldWidth = 300;
-        private const int WorldHeight = 120;
-        private const int BillyRadius = 3; // billy thicc
+        public int WorldWidth;
+        public int WorldHeight;
+        public Canvas World;
 
-        private int BulletLocationX = -1;
-        private int BulletLocationY = -1;
-        private Ellipse BulletBil; // from Mario ;)
-
-        private DispatcherTimer Timer;
-        private Canvas World;
-        private Action Callback;
-
-        public ShootingRange(Canvas canvas)
+        public ShootingRange(Canvas canvas, int worldWidth = 300, int wordHeight = 120)
         {
             World = canvas;
+            WorldWidth = worldWidth;
+            WorldHeight = wordHeight;
         }
 
         public void Initialise()
         {
             World.Children.Clear();
             DrawMetricLines();
-            InitBullet();
-            BulletLocationX = 0;
-            BulletLocationY = WorldHeight;
-        }
-
-
-        private int CalcPixelX(int height)
-        {
-            double f = (World.Height / WorldHeight);
-            return (int)(height * f);
-        }
-
-        private int CalcPixelY(int width)
-        {
-            double f = (World.Width / WorldWidth);
-            return (int)(width * f);
-        }
-
-        public void Shoot()
-        {
-            Timer = new DispatcherTimer()
-            {
-                Interval = TimeSpan.FromMilliseconds(50),
-            };
-            Timer.Tick += Tick;
-            Timer.Start();
-
-            void Tick(object sender, EventArgs args)
-            {
-                BulletLocationX += 3;
-                BulletLocationY -= 1;
-                //callback();
-                if (CheckCollision())
-                {
-                    Timer.Stop();
-                    return;
-                }
-                UpdateBullet();
-            }
-        }
-
-        private bool CheckCollision()
-        {
-            // De kogel mag hoger vliegen dan de hoogte van de wereld om dan vervolgens terug in de “wereld” te vallen
-            return BulletLocationX < 0 /* Left */ || BulletLocationX > WorldWidth /* Right */ || BulletLocationY > WorldHeight /* Bottom */;
-        }
-
-        private void UpdateBullet()
-        {
-            BulletBil.Margin = new Thickness(CalcPixelX(BulletLocationX - BillyRadius), CalcPixelY(BulletLocationY + BillyRadius), 0, 0);
-        }
-
-        private void InitBullet()
-        {
-            BulletBil = new Ellipse(); // create Billy
-            BulletBil.Margin = new Thickness(BulletLocationX, BulletLocationY, 0, 0);
-            BulletBil.Stroke = new SolidColorBrush(Colors.Red);
-            BulletBil.StrokeThickness = BillyRadius;
-            BulletBil.Height = BillyRadius*2;
-            BulletBil.Width = BillyRadius*2;
-            World.Children.Add(BulletBil);
         }
 
         private void DrawMetricLines()
@@ -114,12 +47,36 @@ namespace Canon
                     lineHeight = 8;
                     // TODO: replace with label
                 }
-                Line line = new Line() { Y1 = CalcPixelX(WorldHeight), Y2 = CalcPixelX(WorldHeight - lineHeight), SnapsToDevicePixels = true };
-                line.X1 = CalcPixelY(10 * i);
+                Line line = new Line() { Y1 = CalcPixelY(0), Y2 = CalcPixelY(lineHeight), SnapsToDevicePixels = true };
+                line.X1 = CalcPixelX(10 * i);
                 line.X2 = line.X1;
                 line.Stroke = lineColor;
                 World.Children.Add(line);
             }
         }
+
+        #region HELPERS
+        public int CalcPixelX(int width)
+        {
+            double f = (World.Width / WorldWidth);
+            return (int)(width * f);
+        }
+
+        public int CalcPixelY(int height)
+        {
+            double f = (World.Height / WorldHeight);
+            return (int)((WorldHeight - height) * f);
+        }
+
+        public Point WorldToScreen(Point worldP)
+        {
+            return new Point()
+            {
+                X = CalcPixelX((int)worldP.X),
+                Y = CalcPixelY((int)worldP.Y)
+            };
+        }
+        #endregion
+
     }
 }

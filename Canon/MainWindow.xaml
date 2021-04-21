@@ -10,8 +10,8 @@
         <Canvas Name="paperCanvas" Background="Wheat" HorizontalAlignment="Left" Height="300" Margin="34,109,0,0" VerticalAlignment="Top" Width="748" ClipToBounds="True" />
         <Label Content="Speed (m/s)&#xD;&#xA;" HorizontalAlignment="Left" Margin="37,21,0,0" VerticalAlignment="Top" Width="131"/>
         <Label Content="Angle&#xD;&#xA;" HorizontalAlignment="Left" Margin="37,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.093,2.371"/>
-        <Slider HorizontalAlignment="Left" Margin="164,21,0,0" VerticalAlignment="Top" Width="217" Maximum="90" Minimum="10" IsSnapToTickEnabled="True" Ticks="1"/>
-        <Slider HorizontalAlignment="Left" Margin="164,62,0,0" VerticalAlignment="Top" Width="217" Maximum="80" Minimum="10" IsSnapToTickEnabled="True" Ticks="1"/>
+        <Slider Name="sldSpeed" HorizontalAlignment="Left" Margin="164,21,0,0" VerticalAlignment="Top" Width="217" Maximum="90" Minimum="10" IsSnapToTickEnabled="True" />
+        <Slider Name="sldAngle" HorizontalAlignment="Left" Margin="164,62,0,0" VerticalAlignment="Top" Width="217" Maximum="80" Minimum="10" IsSnapToTickEnabled="True" />
         <Label Name="lblSpeed" Content="0" HorizontalAlignment="Left" Margin="395,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.115,0.487"/>
         <Label Name="lblAngle" Content="0" HorizontalAlignment="Left" Margin="395,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.511,0.576"/>
         <Image HorizontalAlignment="Left" Height="29" Margin="4,380,0,0" VerticalAlignment="Top" Width="29" Source="Canon.png"/>
