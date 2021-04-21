@@ -5,21 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Canon"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="H10_Canon" Height="450" Width="800">
     <Grid>
-        <Canvas Name="paperCanvas" Background="Wheat" HorizontalAlignment="Left" Height="300" Margin="34,109,0,0" VerticalAlignment="Top" Width="748" ClipToBounds="True" />
-        <Label Content="Speed (m/s)&#xD;&#xA;" HorizontalAlignment="Left" Margin="37,21,0,0" VerticalAlignment="Top" Width="131"/>
-        <Label Content="Angle&#xD;&#xA;" HorizontalAlignment="Left" Margin="37,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.093,2.371"/>
-        <Slider Name="sldSpeed" HorizontalAlignment="Left" Margin="164,21,0,0" VerticalAlignment="Top" Width="217" Maximum="90" Minimum="10" IsSnapToTickEnabled="True" />
-        <Slider Name="sldAngle" HorizontalAlignment="Left" Margin="164,62,0,0" VerticalAlignment="Top" Width="217" Maximum="80" Minimum="10" IsSnapToTickEnabled="True" />
-        <Label Name="lblSpeed" Content="0" HorizontalAlignment="Left" Margin="395,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.115,0.487"/>
-        <Label Name="lblAngle" Content="0" HorizontalAlignment="Left" Margin="395,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.511,0.576"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition Width="755*"/>
+        </Grid.ColumnDefinitions>
+        <Canvas Name="paperCanvas" Background="Wheat" HorizontalAlignment="Left" Height="300" Margin="34,109,0,0" VerticalAlignment="Top" Width="748" ClipToBounds="True" Grid.ColumnSpan="2" />
+        <Label Content="Speed (m/s)&#xD;&#xA;" HorizontalAlignment="Left" Margin="0.256,21,0,0" VerticalAlignment="Top" Width="131" Grid.Column="1"/>
+        <Label Content="Angle&#xD;&#xA;" HorizontalAlignment="Left" Margin="0.256,62,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.093,2.371" Grid.Column="1"/>
+        <Slider Name="sldSpeed" HorizontalAlignment="Left" Margin="127.256,21,0,0" VerticalAlignment="Top" Width="217" Value="10" Maximum="90" Minimum="10" IsSnapToTickEnabled="True" Grid.Column="1" />
+        <Slider Name="sldAngle" HorizontalAlignment="Left" Margin="127.256,62,0,0" VerticalAlignment="Top" Width="217" Value="10" Maximum="80" Minimum="10" IsSnapToTickEnabled="True" Grid.Column="1" />
+        <Label Name="lblSpeed" Content="10" HorizontalAlignment="Left" Margin="358.256,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.115,0.487" Grid.Column="1"/>
+        <Label Name="lblAngle" Content="10" HorizontalAlignment="Left" Margin="358.256,57,0,0" VerticalAlignment="Top" RenderTransformOrigin="-2.511,0.576" Grid.Column="1"/>
         <Image HorizontalAlignment="Left" Height="29" Margin="4,380,0,0" VerticalAlignment="Top" Width="29" Source="Canon.png"/>
-        <Button Name="btnShoot" Content="Shoot" HorizontalAlignment="Left" Margin="426,68,0,0" VerticalAlignment="Top" Width="75" Click="btnShoot_Click"/>
-        <Label Content="Distance&#xD;&#xA;" HorizontalAlignment="Left" Margin="520,21,0,0" VerticalAlignment="Top"/>
-        <Label Content="Height&#xD;&#xA;" HorizontalAlignment="Left" Margin="520,50,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblDistance" Content="0 meter" HorizontalAlignment="Left" Margin="630,21,0,0" VerticalAlignment="Top"/>
-        <Label Name="lblHeight" Content="0 meter" HorizontalAlignment="Left" Margin="630,47,0,0" VerticalAlignment="Top"/>
+        <Button Name="btnShoot" Content="Shoot" HorizontalAlignment="Left" Margin="389.256,68,0,0" VerticalAlignment="Top" Width="75" Click="btnShoot_Click" Grid.Column="1"/>
+        <Label Content="Distance&#xD;&#xA;" HorizontalAlignment="Left" Margin="483.256,21,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Content="Height&#xD;&#xA;" HorizontalAlignment="Left" Margin="483.256,50,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Name="lblDistance" Content="0 meter" HorizontalAlignment="Left" Margin="593.256,21,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <Label Name="lblHeight" Content="0 meter" HorizontalAlignment="Left" Margin="593.256,47,0,0" VerticalAlignment="Top" Grid.Column="1"/>
 
     </Grid>
 </Window>

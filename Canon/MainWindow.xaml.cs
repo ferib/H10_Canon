@@ -30,33 +30,48 @@ namespace Canon
             InitializeComponent();
             Schietbaan = new ShootingRange(paperCanvas);
             Schietbaan.Initialise();
+
+            sldSpeed.ValueChanged += SlidersUpdate;
+            sldAngle.ValueChanged += SlidersUpdate;
         }
 
         private void btnShoot_Click(object sender, RoutedEventArgs e)
         {
             Bullet billy = new Bullet(Schietbaan);
-            BulletTimer = billy.Launch();
+            BulletTimer = billy.Launch(Convert.ToDouble(lblAngle.Content), Convert.ToDouble(lblSpeed.Content));
             BulletTimer.Tick += UpdateWPFView; // hook WPF cleanup
             BulletTimer.Start();
-            sldSpeed.IsEnabled = false;
-            sldAngle.IsEnabled = false;
-            btnShoot.IsEnabled = false;
+            EnableUI(false);
         }
 
+        #region UI_Update
         private void UpdateWPFView(object sender, EventArgs e)
         {
-            // TODO: update WPF UI
             if (!BulletTimer.IsEnabled)
                 ShotsFired();
-
+            lblHeight.Content = Schietbaan.ActiveBullet.Sy.ToString("0.00") + " meter";
+            lblDistance.Content = Schietbaan.ActiveBullet.Sx.ToString("0.00") + " meter";
         }
 
         private void ShotsFired()
         {
-            // TODO: unlock WPF UI
-            sldSpeed.IsEnabled = true;
-            sldAngle.IsEnabled = true;
-            btnShoot.IsEnabled = true;
+            EnableUI(true);
+            //Schietbaan.ActiveBullet.EraseBullet(); // idk
         }
+
+        private void EnableUI(bool status = true)
+        {
+            sldSpeed.IsEnabled = status;
+            sldAngle.IsEnabled = status;
+            btnShoot.IsEnabled = status;
+        }
+
+        private void SlidersUpdate(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            lblAngle.Content = sldAngle.Value;
+            lblSpeed.Content = sldSpeed.Value;
+        }
+
+        #endregion
     }
 }

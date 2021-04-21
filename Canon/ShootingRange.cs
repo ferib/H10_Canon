@@ -21,6 +21,7 @@ namespace Canon
         public int WorldWidth;
         public int WorldHeight;
         public Canvas World;
+        public Bullet ActiveBullet;
 
         public ShootingRange(Canvas canvas, int worldWidth = 300, int wordHeight = 120)
         {
@@ -44,8 +45,19 @@ namespace Canon
                 int lineHeight = 5;
                 if(i % 10 == 0)
                 {
-                    lineHeight = 8;
-                    // TODO: replace with label
+                    //lineHeight = 8;
+                    Label label = new Label();
+                    string content = $"{10*i}";
+                    int labelWith = content.Length * 11;
+
+                    label.Content = content;
+                    label.Margin = new Thickness()
+                    {
+                        Left = CalcPixelX((10 * i) - (labelWith / 2)),
+                        Right = CalcPixelX((10 * i) + (labelWith / 2)),
+                        Top = CalcPixelY(lineHeight + 8)
+                    };
+                    World.Children.Add(label);
                 }
                 Line line = new Line() { Y1 = CalcPixelY(0), Y2 = CalcPixelY(lineHeight), SnapsToDevicePixels = true };
                 line.X1 = CalcPixelX(10 * i);
